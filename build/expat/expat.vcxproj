@@ -3,8 +3,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D6BA6815-0AAC-48FA-8372-D32CDE8BF07A}</ProjectGuid>
     <RootNamespace>expat</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Aegisub project configuration -->
   <PropertyGroup Label="AegisubConfiguration">
     <AegisubProjectType>lib</AegisubProjectType>
@@ -13,7 +13,6 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -23,13 +22,11 @@
       <HeaderRoot>$(SrcDir)</HeaderRoot>
     </InstallHeader>
   </ItemDefinitionGroup>
-
   <!-- Source files -->
   <ItemGroup>
     <InstallHeader Include="$(SrcDir)\expat.h" />
     <InstallHeader Include="$(SrcDir)\expat_external.h" />
   </ItemGroup>
-
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\ascii.h" />
     <ClInclude Include="$(SrcDir)\asciitab.h" />

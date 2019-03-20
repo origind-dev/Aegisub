@@ -3,49 +3,27 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5B0E9978-E76F-4BBC-8194-228323F59B53}</ProjectGuid>
     <RootNamespace>PortableInstaller</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
     <Import Project="$(MSBuildThisFileDirectory)..\git_version.xml" />
   </ImportGroup>
-
   <PropertyGroup>
     <PlatformName Condition="$(Platform) == 'Win32'">x86</PlatformName>
     <PlatformName Condition="$(Platform) == 'x64'">x64</PlatformName>
     <FileName>aegisub-$(GitVersionString)-portable-$(AegisubPlatformSuffix)</FileName>
     <OutputFile>$(AegisubSourceBase)packages\win_installer\output\$(FileName).exe</OutputFile>
   </PropertyGroup>
-
   <Target Name="Build">
-    <Error
-      Condition="!Exists($(WinRarPath))"
-      Text="WinRAR.exe not found. Please set the path to it."
-      />
-
+    <Error Condition="!Exists($(WinRarPath))" Text="WinRAR.exe not found. Please set the path to it." />
     <MakeDir Directories="$(AegisubObjectDir)\$(FileName)" />
     <MakeDir Directories="$(AegisubSourceBase)\packages\win_installer\output" />
-
-    <Copy
-      SourceFiles="@(RarContents)"
-      DestinationFiles="$(AegisubObjectDir)$(FileName)\%(RarContents.OutputPath)%(Filename)%(Extension)"
-      SkipUnchangedFiles="true"
-      />
-
-    <Copy
-      SourceFiles="@(RarMetafiles)"
-      DestinationFolder="$(AegisubObjectDir)"
-      SkipUnchangedFiles="true"
-      />
-
+    <Copy SourceFiles="@(RarContents)" DestinationFiles="$(AegisubObjectDir)$(FileName)\%(RarContents.OutputPath)%(Filename)%(Extension)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(RarMetafiles)" DestinationFolder="$(AegisubObjectDir)" SkipUnchangedFiles="true" />
     <Delete Files="$(OutputFile)" />
-
-    <Exec
-      Command="&quot;$(WinRarPath)&quot; a -sfx -s -m5 -ep1 -r -zportable-comment.txt -iimgside-logo.bmp -iiconicon.ico $(OutputFile) $(FileName)"
-      WorkingDirectory="$(AegisubObjectDir)"
-      />
+    <Exec Command="&quot;$(WinRarPath)&quot; a -sfx -s -m5 -ep1 -r -zportable-comment.txt -iimgside-logo.bmp -iiconicon.ico $(OutputFile) $(FileName)" WorkingDirectory="$(AegisubObjectDir)" />
   </Target>
-
   <ItemGroup>
     <RarContents Include="$(AegisubSourceBase)automation\autoload\cleantags-autoload.lua">
       <OutputPath>automation\autoload\</OutputPath>

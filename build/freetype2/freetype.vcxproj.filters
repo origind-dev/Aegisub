@@ -71,9 +71,6 @@
     <ClCompile Include="$(Freetype2SrcDir)\src\base\ftwinfnt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="$(Freetype2SrcDir)\src\base\ftfntfmt..c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="$(Freetype2SrcDir)\src\bdf\bdf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -128,24 +125,27 @@
     <ClCompile Include="$(Freetype2SrcDir)\src\winfonts\winfnt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="$(Freetype2SrcDir)\src\base\ftfntfmt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(Freetype2SrcDir)\include\ft2build.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(Freetype2SrcDir)\include\freetype\config\ftconfig.h">
+    <ClInclude Include="$(Freetype2SrcDir)\include\config\ftconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(Freetype2SrcDir)\include\freetype\config\ftheader.h">
+    <ClInclude Include="$(Freetype2SrcDir)\include\config\ftheader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(Freetype2SrcDir)\include\freetype\config\ftmodule.h">
+    <ClInclude Include="$(Freetype2SrcDir)\include\config\ftmodule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(Freetype2SrcDir)\include\freetype\config\ftoption.h">
+    <ClInclude Include="$(Freetype2SrcDir)\include\config\ftoption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(Freetype2SrcDir)\include\freetype\config\ftstdlib.h">
+    <ClInclude Include="$(Freetype2SrcDir)\include\config\ftstdlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

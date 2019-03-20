@@ -9,6 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)src\host\buildvm.h" />
-    <ClInclude Include="$(SrcDir)src\host\buildvm_arch.h" />
+    <ClInclude Include="$(AegisubObjectDir)buildvm_arch.h" />
   </ItemGroup>
 </Project>

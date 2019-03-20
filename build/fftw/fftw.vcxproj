@@ -3,17 +3,15 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EA3DCC95-2423-4EA0-A508-7A427B4C0594}</ProjectGuid>
     <RootNamespace>fftw</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Aegisub project configuration -->
   <PropertyGroup Label="AegisubConfiguration">
     <AegisubProjectType>lib</AegisubProjectType>
   </PropertyGroup>
-
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -42,7 +40,6 @@
       <HeaderRoot>$(FftwSrcDir)\api</HeaderRoot>
     </InstallHeader>
   </ItemDefinitionGroup>
-
   <!-- Source files -->
   <ItemGroup>
     <InstallHeader Include="$(FftwSrcDir)\api\fftw3.h" />

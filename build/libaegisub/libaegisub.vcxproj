@@ -3,6 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BB3FED86-DB7A-4DC7-964A-260FB86CDE61}</ProjectGuid>
     <RootNamespace>libaegisub</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <!-- Aegisub project configuration -->
   <PropertyGroup Label="AegisubConfiguration">
@@ -34,7 +35,6 @@
       <InputRelativeSourceDir>$(SrcDir)</InputRelativeSourceDir>
     </ClCompile>
   </ItemDefinitionGroup>
-
   <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\boost\boost.vcxproj">
@@ -56,7 +56,6 @@
       <Project>{7b56955d-5162-4698-aa5b-47484edc8783}</Project>
     </ProjectReference>
   </ItemGroup>
-
   <!-- Source files -->
   <ItemGroup>
     <ClInclude Include="$(SrcDir)common\charset_6937.h" />
@@ -169,7 +168,8 @@
     <ClCompile Include="$(SrcDir)lua\modules\lfs.cpp" />
     <ClCompile Include="$(SrcDir)lua\modules\lpeg.c">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="$(SrcDir)lua\modules\re.cpp" />
     <ClCompile Include="$(SrcDir)lua\modules\unicode.cpp" />

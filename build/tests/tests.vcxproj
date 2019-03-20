@@ -3,8 +3,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{49766286-2B5D-4177-A860-BD7CE1846EEF}</ProjectGuid>
     <RootNamespace>tests</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Aegisub project configuration -->
   <PropertyGroup Label="AegisubConfiguration">
     <AegisubProjectType>exe</AegisubProjectType>
@@ -13,7 +13,6 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -36,7 +35,6 @@
       <Command>$(SrcDir)setup.bat "$(AegisubBinaryDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-
   <!-- Source files -->
   <ItemGroup>
     <ClCompile Include="$(SrcDir)tests\access.cpp" />
@@ -76,7 +74,6 @@
     <None Include="$(SrcDir)setup.bat" />
     <None Include="$(SrcDir)setup.sh" />
   </ItemGroup>
-
   <!-- Dependencies -->
   <ItemGroup>
     <ProjectReference Include="..\boost\boost.vcxproj">

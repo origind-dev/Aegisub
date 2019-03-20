@@ -5,13 +5,12 @@
     <RootNamespace>icu</RootNamespace>
     <AegisubProjectType>lib</AegisubProjectType>
     <AegisubMBCS>true</AegisubMBCS>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Aegisub project configuration -->
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -40,7 +39,6 @@
       </PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-
   <!-- ICU data table stuff -->
   <PropertyGroup>
     <MiniLuaCommand>$(AegisubBinaryDir)luajit-minilua$(AegisubPlatformSuffix)</MiniLuaCommand>
@@ -48,33 +46,14 @@
     <IcuDt>icudt53l</IcuDt>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-
   <UsingTask TaskName="DownloadTgzFile" AssemblyFile="$(AegisubBinaryDir)BuildTasks.dll" />
-  <Target
-    Name="DownloadDataTables"
-    BeforeTargets="PackDataTables"
-    Inputs="$(IcuSrcDir)data\in\$(IcuDt).dat.gz"
-    Outputs="$(IcuSrcDir)data\in\$(IcuDt).dat"
-    >
+  <Target Name="DownloadDataTables" BeforeTargets="PackDataTables" Inputs="$(IcuSrcDir)data\in\$(IcuDt).dat.gz" Outputs="$(IcuSrcDir)data\in\$(IcuDt).dat">
     <!-- Generated with tools/strip-icu.py -->
-    <DownloadTgzFile
-      Url="http://www.aegisub.org/~plorkyeran/$(IcuDt)-be995a7e5fe230029e9b1e547b7de8826888c18c.dat.gz"
-      OutputFile="$(MSBuildThisFileDirectory)..\..\vendor\icu\source\data\in\$(IcuDt).dat"
-      Hash="be995a7e5fe230029e9b1e547b7de8826888c18c"
-      />
+    <DownloadTgzFile Url="http://www.aegisub.org/~plorkyeran/$(IcuDt)-be995a7e5fe230029e9b1e547b7de8826888c18c.dat.gz" OutputFile="$(MSBuildThisFileDirectory)..\..\vendor\icu\source\data\in\$(IcuDt).dat" Hash="be995a7e5fe230029e9b1e547b7de8826888c18c" />
   </Target>
-
-  <Target
-    Name="PackDataTables"
-    BeforeTargets="ClCompile"
-    Inputs="$(IcuSrcDir)\data\in\$(IcuDt).dat;pack-dt.lua"
-    Outputs="$(AegisubObjectDir)$(IcuDt).c"
-    >
-    <Exec
-      Command="$(MiniLuaCommand) $(PackCommand) &quot;$(IcuSrcDir)&quot; &quot;$(AegisubObjectDir)$(IcuDt).c&quot;"
-      />
+  <Target Name="PackDataTables" BeforeTargets="ClCompile" Inputs="$(IcuSrcDir)\data\in\$(IcuDt).dat;pack-dt.lua" Outputs="$(AegisubObjectDir)$(IcuDt).c">
+    <Exec Command="$(MiniLuaCommand) $(PackCommand) &quot;$(IcuSrcDir)&quot; &quot;$(AegisubObjectDir)$(IcuDt).c&quot;" />
   </Target>
-
   <!-- Source files -->
   <ItemGroup>
     <InstallHeader Include="$(IcuSrcDir)\i18n\unicode\*.h">
@@ -190,7 +169,7 @@
     <ClCompile Include="$(IcuSrcDir)\common\locresdata.cpp" />
     <ClCompile Include="$(IcuSrcDir)\common\locutil.cpp" />
     <ClCompile Include="$(IcuSrcDir)\common\lrucache.cpp">
-    <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <ClCompile Include="$(IcuSrcDir)\common\resbund.cpp" />
     <ClCompile Include="$(IcuSrcDir)\common\resbund_cnv.cpp" />

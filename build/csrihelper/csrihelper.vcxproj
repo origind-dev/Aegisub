@@ -4,8 +4,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C832EAF3-860D-4373-A02C-933626B47A5E}</ProjectGuid>
     <RootNamespace>csrihelper</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Aegisub project configuration -->
   <PropertyGroup Label="AegisubConfiguration">
     <AegisubProjectType>lib</AegisubProjectType>
@@ -14,7 +14,6 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -25,7 +24,6 @@
       <HeaderRoot>$(SrcDir)include</HeaderRoot>
     </InstallHeader>
   </ItemDefinitionGroup>
-
   <!-- Source files -->
   <ItemGroup>
     <InstallHeader Include="$(SrcDir)include\csri\*.h" />

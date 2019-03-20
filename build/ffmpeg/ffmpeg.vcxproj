@@ -5,8 +5,8 @@
     <RootNamespace>ffmpeg</RootNamespace>
     <AegisubProjectType>lib</AegisubProjectType>
     <SrcDir>$(FfmpegSrcDir)</SrcDir>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Aegisub project configuration -->
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
@@ -14,7 +14,6 @@
   <ImportGroup Label="Targets">
     <Import Project="$(MSBuildThisFileDirectory)..\yasm.targets" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -39,14 +38,13 @@
       </PreprocessorDefinitions>
       <ForcedIncludeFiles>stdlib.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <WarningLevel>Level1</WarningLevel>
-
       <!-- FFmpeg relies heavily on dead-code elimination to remove references
            to functions that don't exist in the current configuration, so it
            fails to link with optimizations disabled or LTO enabled -->
-      <Optimization           Condition="'$(Configuration)'=='Debug'">MinSpace</Optimization>
+      <Optimization Condition="'$(Configuration)'=='Debug'">MinSpace</Optimization>
       <DebugInformationFormat Condition="'$(Configuration)'=='Debug'">ProgramDatabase</DebugInformationFormat>
-      <BasicRuntimeChecks     Condition="'$(Configuration)'=='Debug'">Default</BasicRuntimeChecks>
-      <FunctionLevelLinking   Condition="'$(Configuration)'=='Debug'">true</FunctionLevelLinking>
+      <BasicRuntimeChecks Condition="'$(Configuration)'=='Debug'">Default</BasicRuntimeChecks>
+      <FunctionLevelLinking Condition="'$(Configuration)'=='Debug'">true</FunctionLevelLinking>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <InputRelativeSourceDir>$(FfmpegSrcDir)</InputRelativeSourceDir>
     </ClCompile>
@@ -60,14 +58,12 @@
       <Config Condition="'$(Platform)'=='x64'">%(Config) -Pconfig-x64.asm</Config>
     </Yasm>
   </ItemDefinitionGroup>
-
   <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\zlib\zlib.vcxproj">
       <Project>{10f22a5a-dd9e-44a1-ba2e-2a9a7c78b0ee}</Project>
     </ProjectReference>
   </ItemGroup>
-
   <!-- Source files -->
   <ItemGroup>
     <ClCompile Include="$(FfmpegSrcDir)\libavcodec\012v.c" />
@@ -1228,7 +1224,6 @@
     <InstallHeader Include="$(MSBuildThisFileDirectory)\libavutil\ffversion.h">
       <HeaderRoot>$(MSBuildThisFileDirectory)</HeaderRoot>
     </InstallHeader>
-
     <InstallHeader Include="$(FfmpegSrcDir)\libavcodec\avcodec.h" />
     <InstallHeader Include="$(FfmpegSrcDir)\libavcodec\avfft.h" />
     <InstallHeader Include="$(FfmpegSrcDir)\libavcodec\d3d11va.h" />
@@ -1315,7 +1310,6 @@
     <InstallHeader Include="$(FfmpegSrcDir)\libswscale\swscale.h" />
     <InstallHeader Include="$(FfmpegSrcDir)\libswscale\version.h" />
   </ItemGroup>
-
   <ItemGroup>
     <Yasm Include="$(FfmpegSrcDir)\libavcodec\x86\aacpsdsp.asm" />
     <Yasm Include="$(FfmpegSrcDir)\libavcodec\x86\ac3dsp.asm" />

@@ -369,9 +369,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <LuajitLibSource Include="$(SrcDir)src\lib_aux.c">
-      <Filter>Standard library</Filter>
-    </LuajitLibSource>
     <LuajitLibSource Include="$(SrcDir)src\lib_base.c">
       <Filter>Standard library</Filter>
     </LuajitLibSource>
@@ -382,9 +379,6 @@
       <Filter>Standard library</Filter>
     </LuajitLibSource>
     <LuajitLibSource Include="$(SrcDir)src\lib_ffi.c">
-      <Filter>Standard library</Filter>
-    </LuajitLibSource>
-    <LuajitLibSource Include="$(SrcDir)src\lib_init.c">
       <Filter>Standard library</Filter>
     </LuajitLibSource>
     <LuajitLibSource Include="$(SrcDir)src\lib_io.c">

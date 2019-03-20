@@ -3,8 +3,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A649D828-A399-4D81-ADEF-94CFDBA7847F}</ProjectGuid>
     <RootNamespace>boost</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Aegisub project configuration -->
   <PropertyGroup Label="AegisubConfiguration">
     <AegisubProjectType>lib</AegisubProjectType>
@@ -12,7 +12,6 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -27,7 +26,6 @@
       </PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
-
   <PropertyGroup>
     <BuildGenerateSourcesTargets>
       $(BuildGenerateSourcesTargets);
@@ -36,11 +34,7 @@
   </PropertyGroup>
   <!-- Have the target depend on the boost version.hpp file so it will usually
        be skipped if the boost version hasn't changed since last build. -->
-  <Target
-    Name="CopyBoostHeaders"
-    Inputs="$(BoostPath)\libs\config\include\boost\version.hpp"
-    Outputs="$(AegisubSourceBase)include\boost\version.hpp"
-    >
+  <Target Name="CopyBoostHeaders" Inputs="$(BoostPath)\libs\config\include\boost\version.hpp" Outputs="$(AegisubSourceBase)include\boost\version.hpp">
     <Message Importance="High" Text="Copy boost headers" />
     <!-- All this cruft is to work around that despite what the documentation
          claims, %(RecursiveDir) matches everything from the first * (not even
@@ -50,13 +44,8 @@
       <BoostIncludeDirs Include="%(BoostLibraries.Identity)\include\boost;$(BoostPath)\libs\numeric\conversion\include\boost" />
       <Headers Include="%(BoostIncludeDirs.Identity)\**\*.*" />
     </ItemGroup>
-    <Copy
-      SourceFiles="@(Headers)"
-      DestinationFiles="@(Headers->'$(AegisubSourceBase)include\boost\%(RecursiveDir)%(Filename)%(Extension)')"
-      SkipUnchangedFiles="true"
-      />
+    <Copy SourceFiles="@(Headers)" DestinationFiles="@(Headers->'$(AegisubSourceBase)include\boost\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
   </Target>
-
   <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\icu\icu.vcxproj">
@@ -66,7 +55,6 @@
       <Project>{965054d2-44f2-4eb2-9879-051cc3d7ef08}</Project>
     </ProjectReference>
   </ItemGroup>
-
   <!-- Source files -->
   <ItemGroup>
     <ClCompile Include="$(BoostPath)\libs\filesystem\src\codecvt_error_category.cpp" />

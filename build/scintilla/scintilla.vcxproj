@@ -3,8 +3,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D6EA54FD-F15C-42F6-929B-A83F299A4582}</ProjectGuid>
     <RootNamespace>scintilla</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Aegisub project configuration -->
   <PropertyGroup Label="AegisubConfiguration">
     <AegisubProjectType>lib</AegisubProjectType>
@@ -13,7 +13,6 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -22,7 +21,6 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
   </ItemDefinitionGroup>
-
   <!-- Source files -->
   <ItemGroup>
     <ClInclude Include="$(SrcDir)\include\ILexer.h" />
@@ -62,9 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)catalogue.cpp" />
-
     <ClCompile Include="$(SrcDir)\lexlib\CharacterSet.cxx" />
-
     <ClCompile Include="$(SrcDir)\src\AutoComplete.cxx" />
     <ClCompile Include="$(SrcDir)\src\CallTip.cxx" />
     <ClCompile Include="$(SrcDir)\src\CaseConvert.cxx" />

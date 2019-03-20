@@ -148,6 +148,9 @@
     <Filter Include="Features\Autosave">
       <UniqueIdentifier>{fde3be82-3653-4519-88f5-8c16ddfb1531}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Align">
+      <UniqueIdentifier>{3ab49ac1-15cf-45f2-a7a8-d68252c572df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SrcDir)ass_dialogue.h">
@@ -1087,6 +1090,15 @@
     </ClCompile>
     <ClCompile Include="$(SrcDir)project.cpp">
       <Filter>Main UI</Filter>
+    </ClCompile>
+    <ClCompile Include="dialog_align.cpp">
+      <Filter>Features\Align</Filter>
+    </ClCompile>
+    <ClCompile Include="image_position_picker.cpp">
+      <Filter>Utilities\UI utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="image_position_picker.h">
+      <Filter>Utilities\UI utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

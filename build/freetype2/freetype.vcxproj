@@ -3,17 +3,15 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{78B079BD-9FC7-4B9E-B4A6-96DA0F00248B}</ProjectGuid>
     <RootNamespace>freetype</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Project configuration -->
   <PropertyGroup Label="AegisubConfiguration">
     <AegisubProjectType>lib</AegisubProjectType>
   </PropertyGroup>
-
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -30,7 +28,6 @@
       <HeaderRoot>$(Freetype2SrcDir)\include</HeaderRoot>
     </InstallHeader>
   </ItemDefinitionGroup>
-
   <!-- Source files -->
   <ItemGroup>
     <InstallHeader Include="$(Freetype2SrcDir)\include\**\*.h" />

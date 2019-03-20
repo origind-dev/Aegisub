@@ -3,8 +3,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0518D6C0-7BF6-4FD1-91FB-191BD10DB2AC}</ProjectGuid>
     <RootNamespace>wxWidgets</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
-
   <!-- Aegisub project configuration -->
   <PropertyGroup Label="AegisubConfiguration">
     <AegisubProjectType>lib</AegisubProjectType>
@@ -13,7 +13,6 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(MSBuildThisFileDirectory)..\aegisub.props" />
   </ImportGroup>
-
   <!-- Project specific configuration -->
   <ItemDefinitionGroup>
     <ClCompile>
@@ -27,24 +26,10 @@
       <HeaderRoot>$(SrcDir)include</HeaderRoot>
     </InstallHeader>
   </ItemDefinitionGroup>
-
-  <Target Name="InstallSetup"
-    Inputs="setup-installed.h;setup-build.h"
-    Outputs="$(AegisubSourceBase)include\wx\setup.h;$(AegisubSourceBase)include\wx\msw\setup.h"
-    BeforeTargets="ClCompile"
-    >
-    <Copy
-      SourceFiles="setup-build.h"
-      DestinationFiles="$(AegisubSourceBase)include\wx\msw\setup.h"
-      SkipUnchangedFiles="true"
-      />
-    <Copy
-      SourceFiles="setup-installed.h"
-      DestinationFiles="$(AegisubSourceBase)include\wx\setup.h"
-      SkipUnchangedFiles="true"
-      />
+  <Target Name="InstallSetup" Inputs="setup-installed.h;setup-build.h" Outputs="$(AegisubSourceBase)include\wx\setup.h;$(AegisubSourceBase)include\wx\msw\setup.h" BeforeTargets="ClCompile">
+    <Copy SourceFiles="setup-build.h" DestinationFiles="$(AegisubSourceBase)include\wx\msw\setup.h" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="setup-installed.h" DestinationFiles="$(AegisubSourceBase)include\wx\setup.h" SkipUnchangedFiles="true" />
   </Target>
-
   <!-- Source files -->
   <ItemGroup>
     <InstallHeader Include="$(SrcDir)include\wx\**\*.h" />
@@ -54,12 +39,10 @@
     <InstallHeader Include="$(SrcDir)include\wx\msw\*.ico" />
     <InstallHeader Include="$(SrcDir)include\wx\msw\*.bmp" />
   </ItemGroup>
-
   <ItemGroup>
     <ClCompile Include="$(SrcDir)src\common\dummy.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-
     <ClCompile Include="$(SrcDir)src\common\accelcmn.cpp" />
     <ClCompile Include="$(SrcDir)src\common\accesscmn.cpp" />
     <ClCompile Include="$(SrcDir)src\common\affinematrix2d.cpp" />
@@ -387,7 +370,6 @@
     <ClCompile Include="$(SrcDir)src\msw\utilswin.cpp" />
     <ClCompile Include="$(SrcDir)src\msw\uxtheme.cpp" />
     <ClCompile Include="$(SrcDir)src\msw\window.cpp" />
-
     <ClCompile Include="$(SrcDir)src\stc\PlatWX.cpp">
       <AdditionalIncludeDirectories>$(SrcDir)src\stc\scintilla\include;$(SrcDir)src\stc\scintilla\src;$(SrcDir)src\stc\scintilla\lexlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -404,10 +386,8 @@
       <PreprocessorDefinitions>SCI_LEXER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SrcDir)src\stc\scintilla\include;$(SrcDir)src\stc\scintilla\src;$(SrcDir)src\stc\scintilla\lexlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-
     <ClCompile Include="$(SrcDir)src\xml\xml.cpp" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\expat\expat.vcxproj">
       <Project>{d6ba6815-0aac-48fa-8372-d32cde8bf07a}</Project>

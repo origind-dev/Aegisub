@@ -87,13 +87,13 @@
     <ClInclude Include="$(LibassSrcDir)\libass\ass_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)strings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)unistd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="config_libass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

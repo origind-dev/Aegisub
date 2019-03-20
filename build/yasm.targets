@@ -87,6 +87,10 @@
       Importance="High"
       Text="%(_Yasm.RelativeOutputDir)%(_Yasm.Filename)%(_Yasm.Extension)"
       />
+	<Message
+      Importance="High"
+      Text="Yasm -f win32 %(_Yasm.Config) %(_Yasm.Include) -o &quot;%(_Yasm.OutputDir)%(_Yasm.Filename).obj&quot; &quot;%(_Yasm.FullPath)&quot;"
+      />
     <Exec
       Command="Yasm -f win32 %(_Yasm.Config) %(_Yasm.Include) -o &quot;%(_Yasm.OutputDir)%(_Yasm.Filename).obj&quot; &quot;%(_Yasm.FullPath)&quot;"
       WorkingDirectory="%(_Yasm.OutputDir)"

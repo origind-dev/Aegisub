@@ -60,9 +60,6 @@
     <None Include="$(FfmsSrcDir)\src\vapoursynth\vapoursynth.cpp">
       <Filter>VapourSynth</Filter>
     </None>
-    <ClCompile Include="$(FfmsSrcDir)\src\core\matroskareader.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="$(FfmsSrcDir)\src\core\filehandle.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
