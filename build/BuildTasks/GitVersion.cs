@@ -97,6 +97,8 @@ namespace BuildTasks {
                     if (Regex.Match(versionStr, @"(\d)\.(\d)\.(\d)").Success) {
                         installerVersion = versionStr;
                         resourceVersion = versionStr.Replace(".", ", ");
+                        if (resourceVersion.Contains("-"))
+                            resourceVersion = resourceVersion.Substring(0, resourceVersion.IndexOf('-'));
                     }
                     break;
                 }
