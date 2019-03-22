@@ -71,7 +71,7 @@ class DialogAlignToVideo final : public wxDialog {
 	void update_from_textbox();
 	void update_from_textbox(wxCommandEvent&);
 
-	bool check_exists(int pos, int x, int y, double r, double g, double b, unsigned char tolerance);
+	bool check_exists(int pos, int x, int y, int* lrud, double* orig, unsigned char tolerance);
 	void process(wxCommandEvent &);
 public:
 	DialogAlignToVideo(agi::Context *context);
@@ -186,6 +186,71 @@ void rgb2lab(unsigned char r, unsigned char g, unsigned char b, double *lab)
 	lab[2] = 200.0 * (fyr - fzr);
 }
 
+template<typename T>
+bool check_point(boost::gil::pixel<unsigned char, T>& pixel, double orig[3], unsigned char tolerance)
+{
+	double lab[3];
+	// in pixel: B,G,R
+	rgb2lab(pixel[2], pixel[1], pixel[0], lab);
+	auto diff = sqrt(pow(lab[0] - orig[0], 2) + pow(lab[1] - orig[1], 2) + pow(lab[2] - orig[2], 2));
+	return diff < tolerance;
+}
+
+template<typename T>
+bool calculate_point(boost::gil::image_view<T> view, int x, int y, double orig[3], unsigned char tolerance, int* ret)
+{
+	auto origin = *view.at(x, y);
+	if (!check_point(origin, orig, tolerance))
+		return false;
+	auto w = view.width();
+	auto h = view.height();
+	int l = x, r = x, u = y, d = y;
+	for (int i = x + 1; i < w; i++)
+	{
+		auto p = *view.at(i, y);
+		if (!check_point(p, orig, tolerance))
+		{
+			r = i;
+			break;
+		}
+	}
+
+	for (int i = x - 1; i >= 0; i--)
+	{
+		auto p = *view.at(i, y);
+		if (!check_point(p, orig, tolerance))
+		{
+			l = i;
+			break;
+		}
+	}
+
+	for (int i = y + 1; i < h; i++)
+	{
+		auto p = *view.at(x, i);
+		if (!check_point(p, orig, tolerance))
+		{
+			d = i;
+			break;
+		}
+	}
+
+	for (int i = y - 1; i >= 0; i--)
+	{
+		auto p = *view.at(x, i);
+		if (!check_point(p, orig, tolerance))
+		{
+			u = i;
+			break;
+		}
+	}
+	ret[0] = l;
+	ret[1] = r;
+	ret[2] = u;
+	ret[3] = d;
+	return true;
+}
+
 void DialogAlignToVideo::process(wxCommandEvent& evt)
 {
 	auto n_frames = provider->GetFrameCount();
@@ -213,37 +278,44 @@ void DialogAlignToVideo::process(wxCommandEvent& evt)
 	}
 	int x = int(lx), y = int(ly);
 	unsigned char tolerance = unsigned char(lt);
+
 	auto color = selected_color->GetColor();
 	auto r = color.r;
 	auto b = color.b;
 	auto g = color.g;
 	double lab[3];
 	rgb2lab(r, g, b, lab);
-	auto lab_l = lab[0];
-	auto lab_a = lab[1]; 
-	auto lab_b = lab[2];
-	// find forward
+
 	int pos = current_n_frame;
+	auto frame = provider->GetFrame(pos, -1, true);
+	auto view = interleaved_view(frame->width, frame->height, reinterpret_cast<boost::gil::bgra8_pixel_t*>(frame->data.data()), frame->pitch);
+	if (frame->flipped)
+		y = frame->height - y;
+	int lrud[4];
+	calculate_point(view, x, y, lab, tolerance, lrud);
+	
+	// find forward
+#define CHECK_EXISTS_POS check_exists(pos, x, y, lrud, lab, tolerance)
 	while (pos >= 0)
 	{
-		if (check_exists(pos, x, y, lab_l, lab_a, lab_b, tolerance))
+		if (CHECK_EXISTS_POS)
 			pos -= 2;
 		else break;
 	}
 	pos++;
 	pos = std::max(0, pos);
-	auto left = check_exists(pos, x, y, lab_l, lab_a, lab_b, tolerance) ? pos : pos + 1;
+	auto left = CHECK_EXISTS_POS ? pos : pos + 1;
 
 	pos = current_n_frame;
 	while (pos < n_frames)
 	{
-		if (check_exists(pos, x, y, lab_l, lab_a, lab_b, tolerance))
+		if (CHECK_EXISTS_POS)
 			pos += 2;
 		else break;
 	}
 	pos--;
 	pos = std::min(pos, n_frames - 1);
-	auto right = check_exists(pos, x, y, lab_l, lab_a, lab_b, tolerance) ? pos : pos - 1;
+	auto right = CHECK_EXISTS_POS ? pos : pos - 1;
 
 	auto timecode = context->project->Timecodes();
 	auto line = context->selectionController->GetActiveLine();
@@ -255,19 +327,20 @@ void DialogAlignToVideo::process(wxCommandEvent& evt)
 
 
 
-bool DialogAlignToVideo::check_exists(int pos, int x, int y, double l, double a, double b, unsigned char tolerance)
+bool DialogAlignToVideo::check_exists(int pos, int x, int y, int* lrud, double* orig, unsigned char tolerance)
 {
 	auto frame = provider->GetFrame(pos, -1, true);
 	auto view = interleaved_view(frame->width, frame->height, reinterpret_cast<boost::gil::bgra8_pixel_t*>(frame->data.data()), frame->pitch);
 	if (frame->flipped) 
 		y = frame->height - y;
-	auto pixel = *view.at(x, y);
+	int actual[4];
+	if (!calculate_point(view, x, y, orig, tolerance, actual)) return false;
+	int dl = abs(actual[0] - lrud[0]);
+	int dr = abs(actual[1] - lrud[1]);
+	int du = abs(actual[2] - lrud[2]);
+	int dd = abs(actual[3] - lrud[3]);
 
-	double lab[3];
-	// in pixel: B,G,R
-	rgb2lab(pixel[2], pixel[1], pixel[0], lab);
-	double diff = sqrt(pow(lab[0] - l, 2) + pow(lab[1] - a, 2) + pow(lab[2] - b, 2));
-	return diff < tolerance;
+	return dl <= 5 && dr <= 5 && du <= 5 && dd <= 5;
 }
 
 void DialogAlignToVideo::update_from_textbox()
